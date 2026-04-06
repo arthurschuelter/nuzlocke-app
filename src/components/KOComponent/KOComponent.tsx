@@ -1,4 +1,4 @@
-
+import * as S from "./KOComponent.style";
 interface KOComponentProps {
     setKos: (numberKos: number) => void;
     numberKos: number;
@@ -6,14 +6,15 @@ interface KOComponentProps {
 
 export default function KOComponent({ setKos, numberKos }: KOComponentProps) {
     return (
-        <div>
-            <button onClick={() => setKos(numberKos - 1)}>
+        <S.KOContainer>
+            <S.KOTitle>KOs:</S.KOTitle>
+            <S.KOButton onClick={() => setKos(numberKos - 1)}>
                 -
-            </button>
-            <span>{numberKos}</span>
-            <button onClick={() => setKos(numberKos + 1)}>
+            </S.KOButton>
+            <S.KoCount>{numberKos}</S.KoCount>
+            <S.KOButton onClick={() => setKos(numberKos + 1)}>
                 +
-            </button>
-        </div>  
+            </S.KOButton>
+        </S.KOContainer>  
     );
 }

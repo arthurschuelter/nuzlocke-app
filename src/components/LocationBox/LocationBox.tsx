@@ -1,39 +1,45 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as S from './LocationBox.styles';
+import type { Pokemon }  from "../../types";
 
 import KOComponent from "../KOComponent/KOComponent";
 
 interface LocationBoxProps {
     name: string;
+    route: string;
     possibleEncounters?: { name: string }[];
     encounteredPokemon?: { name: string } | null;
+    setEncounteredPokemon: (encounter: Pokemon | null, key: string) => void;
 }
 
-export default function LocationBox({ name, possibleEncounters, encounteredPokemon }: LocationBoxProps) {
-
-    useEffect(() => {
-        if (choice != null) {
-            encounteredPokemon = { name: choice };
-        }
-    }, [encounteredPokemon]);
-
-
-    const [choice, setChoice] = useState<string | null>(null);
+export default function LocationBox({ name, route, possibleEncounters, encounteredPokemon, setEncounteredPokemon }: LocationBoxProps) {
+    const [pokemon, setPokemon] = useState<Pokemon | null>(encounteredPokemon || null);
     const [numberKos, setNumberKos] = useState(0);
-
-
-    const options = possibleEncounters ? possibleEncounters.map(e => e.name) : ["Pidgey", "Rattata", "Caterpie"];
-
+    
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        encounteredPokemon = { name: e.target.value };
-        setChoice(e.target.value);
+        const newPokemon: Pokemon = { name: e.target.value, killCount: numberKos };
+        setPokemon(newPokemon);
+        
+        setEncounteredPokemon(newPokemon, route);
     }
-
+    
+    const handleKoChange = (newKos: number) => {
+        if (newKos < 0) newKos = 0;
+        setNumberKos(newKos);
+        if (pokemon) {
+            const updatedPokemon = { ...pokemon, killCount: newKos };
+            setPokemon(updatedPokemon);
+            setEncounteredPokemon(updatedPokemon, route);
+        }
+    }
+    
+    const options = possibleEncounters ? possibleEncounters.map(e => e.name) : ["null"];
+    
     return (
         <S.LocationBoxContainer>
             <h2>{name}</h2>
 
-            <select value={choice ?? ""} onChange={e => handleSelectChange(e)}>
+            <select value={pokemon?.name ?? ""} onChange={e => handleSelectChange(e)}>
                 <option value="">Select a Pokémon</option>
                 {options.map(option => (
                     <option key={option} value={option}>
@@ -42,15 +48,12 @@ export default function LocationBox({ name, possibleEncounters, encounteredPokem
                 ))}
             </select>
 
-            {choice && 
+            {pokemon?.name && 
                 <KOComponent 
-                    setKos={setNumberKos} 
+                    setKos={handleKoChange} 
                     numberKos={numberKos} />
             }
 
-            {/* {choice && 
-                <button onClick={() => setChoice(null)}>Trash Icon</button>
-            } */}
         </S.LocationBoxContainer>
     );
 }
