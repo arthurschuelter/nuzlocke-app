@@ -8,14 +8,14 @@ interface LocationBoxProps {
     name: string;
     route: string;
     possibleEncounters?: { name: string }[];
-    encounteredPokemon?: { name: string } | null;
+    encounteredPokemon?: Pokemon | null;
     setEncounteredPokemon: (encounter: Pokemon | null, key: string) => void;
 }
 
 export default function LocationBox({ name, route, possibleEncounters, encounteredPokemon, setEncounteredPokemon }: LocationBoxProps) {
     const [pokemon, setPokemon] = useState<Pokemon | null>(encounteredPokemon || null);
     const [numberKos, setNumberKos] = useState(0);
-    
+
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newPokemon: Pokemon = { name: e.target.value, killCount: numberKos };
         setPokemon(newPokemon);
