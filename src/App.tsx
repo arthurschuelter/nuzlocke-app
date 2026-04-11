@@ -5,6 +5,7 @@ import './App.css'
 
 import Header from './components/Header/Header'
 import Encounters from './components/Encounters/Encounters'
+import KOChart from './components/KOChart/KOChart';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,6 +13,7 @@ function App() {
   return (
     <>
       <Header />
+      <KOChart />
       <Encounters />
       <section id="center">
         <button
