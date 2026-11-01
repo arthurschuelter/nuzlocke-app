@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useState } from 'react';
 import { useStore } from "../../store/store";
 
 import { KOChartComponent } from "../KOChartComponent/KOChartComponent";
@@ -10,6 +10,7 @@ interface KOChartProps {
 }
 
 export default function KOChart({ }: KOChartProps) {
+    const [isGraphVisible, setIsGraphVisible] = useState(true);
     const { encounteredPokemon } = useStore();
 
     const sorted = Object.values(encounteredPokemon)
@@ -22,10 +23,22 @@ export default function KOChart({ }: KOChartProps) {
         <div>
             {sorted.length > 0 ? (
                 <>
-                    <S.KOChartTitle>KO Statistics</S.KOChartTitle>
-                    <S.KOChartContainer>
-                        <KOChartComponent data={sorted} />
-                    </S.KOChartContainer>
+                    <S.KOChartHeader>
+                        <S.KOChartTitle>KO Statistics</S.KOChartTitle>
+                        <S.KOChartToggle
+                            type="button"
+                            aria-expanded={isGraphVisible}
+                            aria-controls="ko-statistics-graph"
+                            onClick={() => setIsGraphVisible(visible => !visible)}
+                        >
+                            {isGraphVisible ? 'Hide graph' : 'Show graph'}
+                        </S.KOChartToggle>
+                    </S.KOChartHeader>
+                    {isGraphVisible && (
+                        <S.KOChartContainer id="ko-statistics-graph">
+                            <KOChartComponent data={sorted} />
+                        </S.KOChartContainer>
+                    )}
                 </>
             ) : null}
         </div>

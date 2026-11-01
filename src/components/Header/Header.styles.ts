@@ -8,4 +8,5 @@ export const HeaderContainer = styled.header`
 
     color: #eee;
     background-color: #333;
+    border-bottom: 1px solid white;
 `

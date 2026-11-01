@@ -1,27 +1,30 @@
 import styled from "styled-components";
 
 export const KOContainer = styled.div`
-    // background-color: red;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
 `
 
 export const KOTitle = styled.p`
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 
     // color: white;
 `
 
 export const KOButton = styled.button`
-    font-size: 1.0rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: white;
 
-    padding: 0.25rem 0.5rem;
-    margin: 0 1.0rem;
-
-    size: 1.5rem;
+    padding: 0.1rem 0.35rem;
+    margin: 0;
+    line-height: 1.2;
 `
 
 export const KoCount = styled.span`
-    font-size: 1.0rem;
+    font-size: 0.8rem;
+    min-width: 1ch;
+    text-align: center;
     color: white;
 `
