@@ -6,7 +6,7 @@ import './App.css'
 import Header from './components/Header/Header'
 import Encounters from './components/Encounters/Encounters'
 import KOChart from './components/KOChart/KOChart';
-import Footer from './components/Footer/Footer';
+// import Footer from './components/Footer/Footer';
 
 function App() {
   const [count, setCount] = useState(0)
